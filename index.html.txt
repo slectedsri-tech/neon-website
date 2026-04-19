@@ -1,84 +1,268 @@
 <!DOCTYPE html>
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 40px 20px;
-    }
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wendell Ranchers</title>
+    <style>
+        /* ==============================
+           Global & Layout Styles
+           ============================== */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Courier New', Courier, monospace; /* Fits the coder vibe */
+            background-color: #121212; /* Dark background */
+            color: white;
+            overflow-x: hidden; /* Prevents horizontal scrolling during animations */
+        }
 
-    .hero h1 {
-      font-size: 64px;
-      margin: 0;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      text-shadow: 0 0 20px rgba(56,189,248,0.35);
-    }
+        /* ==============================
+           Parallax/Background Layers
+           ============================== */
+        
+        /* City Container (add your background image here) */
+        .city {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #1a1a1a; /* Placeholder color until you add an image */
+            /* background-image: url('city-background.webp'); */ /* Uncomment when ready */
+            background-size: cover;
+            background-position: center;
+            z-index: -3; /* Farthest back */
+        }
 
-    .hero p {
-      max-width: 700px;
-      margin-top: 20px;
-      font-size: 20px;
-      color: #94a3b8;
-    }
+        /* Base Car Styles */
+        .car {
+            position: fixed;
+            bottom: 50px; /* Distance from bottom */
+            width: 150px; /* Set dimensions for your asset */
+            height: 80px;
+            background-color: transparent; /* Changed from placeholder */
+            /* background-image: url('your-car-image.webp'); */ /* Uncomment when ready */
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: -1; /* Behind content, in front of city */
+        }
 
-    .btn {
-      margin-top: 30px;
-      padding: 14px 28px;
-      border: 1px solid #67e8f9;
-      color: #67e8f9;
-      border-radius: 12px;
-      cursor: pointer;
-      background: transparent;
-    }
+        /* Car 1 Specifics (Slower) */
+        .car:nth-child(2) {
+            bottom: 40px;
+            animation: driveSlower 25s linear infinite;
+            opacity: 0.8;
+            filter: brightness(0.7); /* Adds depth */
+        }
 
-    footer {
-      text-align: center;
-      padding: 30px;
-      color: #64748b;
-    }
-  </style>
+        /* Car 2 Specifics (Faster) */
+        .car:nth-child(3) {
+            bottom: 70px;
+            animation: driveFaster 15s linear infinite;
+        }
+
+        /* Car Animations */
+        @keyframes driveFaster {
+            0% { left: -200px; }
+            100% { left: 100vw; }
+        }
+
+        @keyframes driveSlower {
+            0% { left: 100vw; }
+            100% { left: -200px; } /* Drives reverse */
+        }
+
+        /* Rain Layer */
+        .rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Allows clicking through the rain */
+            z-index: 5; /* On top of everything */
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(255, 255, 255, 0.05) 0px,
+                rgba(255, 255, 255, 0.05) 1px,
+                transparent 1px,
+                transparent 30px
+            );
+            animation: rainfall 0.7s linear infinite;
+        }
+
+        @keyframes rainfall {
+            0% { transform: translateY(-20px); }
+            100% { transform: translateY(20px); }
+        }
+
+        /* ==============================
+           Header & Nav (z-index 10+)
+           ============================== */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: rgba(0, 0, 0, 0.7); /* Transparent background */
+            backdrop-filter: blur(5px); /* Blurs the rain behind it */
+            position: fixed;
+            top: 0;
+            width: calc(100% - 100px); /* Adjusts for padding */
+            z-index: 15;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #00ff41; /* "Matrix" green */
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #00ff41;
+        }
+
+        /* ==============================
+           Hero Section
+           ============================== */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Fills the screen */
+            padding: 0 20px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            line-height: 1.1;
+            /* text-transform: uppercase; */ /* Optional: if you prefer CSS capitalization */
+        }
+
+        p {
+            font-size: 1rem;
+            color: #aaa;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+
+        /* The Button */
+        .btn {
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-family: inherit;
+            color: #121212;
+            background-color: #00ff41;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.1s ease, background-color 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 255, 65, 0.4);
+        }
+
+        .btn:hover {
+            background-color: #00cc33;
+        }
+
+        .btn:active {
+            transform: translateY(2px);
+        }
+
+        /* ==============================
+           Footer & Playlist Link
+           ============================== */
+        .playlist-link {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            color: #555;
+            text-decoration: none;
+            font-size: 0.8rem;
+            z-index: 12;
+            transition: color 0.3s;
+        }
+
+        .playlist-link:hover {
+            color: #00ff41;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #444;
+            background: rgba(0,0,0,0.5);
+            z-index: 11;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="city"></div>
-  <div class="car"></div>
-  <div class="car"></div>
-  <div class="rain"></div>
+    <div class="city"></div>
+    <div class="car"></div> <div class="car"></div> <div class="rain"></div>
 
-  <header>
-    <div class="logo">NEON // SHAFIQ</div>
-    <nav>
-      <a href="#">Home</a>
-      <a href="#">Journey</a>
-      <a href="#">Contact</a>
-    </nav>
-  </header>
+    <header>
+        <div class="logo">WENDELL RANCHERS</div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Profile</a>
+            <a href="#">Contact</a>
+            </nav>
+    </header>
 
-  <section class="hero">
-    <h1>Into The Night</h1>
-    <p>Neon rain. Endless motion. Rebuilding yourself in the dark.</p>
-    <button class="btn" onclick="toggleMusic()">Toggle Music</button>
-  </section>
+    <section class="hero">
+        <h1>WHAT'S UP YOU YOU YOU YOU YOU YOU YOUTUBEEEEEEEE</h1>
+        <p>idk wtf im doing tbh, im still a novice in coding and shit.</p>
+        <button class="btn" onclick="toggleMusic()">Toggle Music</button>
+    </section>
 
-  <audio id="bgMusic" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/10/25/audio_946b6f1c82.mp3" type="audio/mpeg">
-  </audio>
+    <a href="https://pixabay.com/music/search/idk%20wtf%20im%20doing%20tbh/" target="_blank" class="playlist-link">Music Playlist</a>
 
-  <footer>
-    © 2026 Shafiq // Cyberpunk Mode
-  </footer>
+    <audio id="bgMusic" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/10/25/audio_946b6f1c82.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
-  <script>
-    const music = document.getElementById('bgMusic');
+    <footer>
+        © 2026 Wendell Ranchers
+    </footer>
 
-    function toggleMusic() {
-      if (music.paused) {
-        music.play();
-      } else {
-        music.pause();
-      }
-    }
-  </script>
+    <script>
+        const music = document.getElementById('bgMusic');
+        const btn = document.querySelector('.btn');
+        
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+                btn.innerHTML = "Pause Music";
+                btn.style.backgroundColor = "#ff4757"; // Change color to red when playing
+                btn.style.boxShadow = "0 4px 15px rgba(255, 71, 87, 0.4)";
+            } else {
+                music.pause();
+                btn.innerHTML = "Toggle Music";
+                btn.style.backgroundColor = "#00ff41"; // Back to green when paused
+                btn.style.boxShadow = "0 4px 15px rgba(0, 255, 65, 0.4)";
+            }
+        }
+    </script>
 
 </body>
 </html>
-
