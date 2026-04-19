@@ -1,4 +1,3 @@
-
   <div class="city"></div>
   <div class="car"></div>
   <div class="car"></div>
@@ -15,9 +14,10 @@
 
   <section class="hero">
     <h1> WHAT'S UP YOU YOU YOU YOU YOU YOU YOUTUBEEEEEEEE</h1>
-    <p>idk wtf im doing</p>
+    <p>idk wtf im doing tbh, im still a novice in coding and shit</p>
     <button class="btn" onclick="toggleMusic()">Toggle Music</button>
   </section>
+
 
 <a href="#">Music Playlist</a>
 
