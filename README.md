@@ -1,7 +1,3 @@
-HELLO EVERYONE
-<!DOCTYPE html>
-</head>
-<body>
 
   <div class="city"></div>
   <div class="car"></div>
@@ -11,9 +7,9 @@ HELLO EVERYONE
   <header>
     <div class="logo">WENDELL RANCHERS</div>
     <nav>
-      <a href="#">Home</a>
-      <a href="#">Profile</a>
-      <a href="#">Contact</a>
+      <a href="#">Home,</a>
+      <a href="#">Profile,</a>
+      <a href="#">Contact,</a>
     </nav>
   </header>
 
@@ -23,7 +19,7 @@ HELLO EVERYONE
     <button class="btn" onclick="toggleMusic()">Toggle Music</button>
   </section>
 
-<a href="#">Music</a>
+<a href="#">Music Playlist</a>
 
   <audio id="bgMusic" loop>
     <source src="https://cdn.pixabay.com/download/audio/2022/10/25/audio_946b6f1c82.mp3" type="audio/mpeg">
