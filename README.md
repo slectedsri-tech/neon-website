@@ -28,6 +28,3 @@
   <footer>
     © 2026 Wendell Ranchers
   </footer>
-
-</body>
-</html>
